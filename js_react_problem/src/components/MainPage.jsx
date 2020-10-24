@@ -9,7 +9,8 @@ class MainPage extends React.Component {
     this.state = {
       animals: ['panda','cat','capybara','iguana','muskrat'].map((name) => {
         return new Animal(name);
-      })    
+      }),
+      error: ''
     };
   }
 
@@ -17,9 +18,25 @@ class MainPage extends React.Component {
       console.log(`Name: ${name} rank: ${rank}`)
   }
   
-  handleSubmit = event => {
-    event.preventDefault()
-    this.props.getValue(this.state)
+  // handleSubmit = event => {
+   
+  //   event.preventDefault()
+  //   this.props.getValue(this.state)
+  // }
+
+  checkForUnique = () => {
+    // Show this error message: `Ranks must be unique` whenever the user has selected the
+  //  same rank on multiple rows.
+    this.setState({
+      error : "Ranks must be unique"
+    })  
+  
+  }
+
+  isDisabled = () =>{
+   // The submit button is disabled by default. Enable it when all rows have a
+   // rank selected and all selected ranks are unique.
+    return true
   }
 
   render() {
@@ -53,8 +70,7 @@ class MainPage extends React.Component {
           </tbody>
         </table>
         <div>{this.state.error}</div>
-        <input type="submit" onSubmit={this.handleSubmit} />
-        {/* <button type="submit">Submit</button> */}
+        <input type="submit" value="Submit" disabled={this.isDisabled()} />        {/* <button type="submit">Submit</button> */}
         {/* </form> */}
       </div>
     );

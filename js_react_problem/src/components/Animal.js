@@ -6,9 +6,6 @@ class Animal extends Component{
     this.name = name;
     this.rank = rank;
   }
-
-  
 }
-
 
 export default Animal;
