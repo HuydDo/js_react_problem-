@@ -7,81 +7,61 @@ class FormRow extends React.Component {
     super();
     this.state = {
       rowColor : false,
-      name: "",
-      rank: 0
-        // panda: 0,
-        // cat:  0,
-        // capybara: 0,
-        // iguana:  0,
-        // muskrat:  0
+      error: '',
+      selectedAnimal:[],
+      errSelectedRanks: []
     }
   }
 
   handleChange = (e) => {
-    if (this.state.rank === e.target.value){
-      console.log("can't select same rank.")
-    }
+    
     console.log(e.target.name)
-    console.log(e.target.value)
+    const newName = e.target.name
+    const newRank = e.target.value
+    console.log("before: " + this.state)
+    
     this.setState({
-      // [e.target.name]: e.target.value,
-      name: e.target.name,
-      rank: e.target.value,
+      // selectedAnimal: [...this.state.selectedAnimal, newName],
+      errSelectedRanks: [...this.state.errSelectedRanks, newRank],
       rowColor: true
-    }, console.log(this.state))
-  }
-  
-  handleChange2 = (e) => {
-    let newName = e.target.name
-    let newRank = e.target.value
-    let cRank = this.state.rank
-    let cName = this.state.name
-    console.log(this.state)
-    console.log(`${newRank} ${newName}`)
+    }, console.log("after: " + this.state))
 
-    if(cName !== newName) {
-      if(cRank !== newRank) {
-        this.setState({
-         name : newName,
-         rank: newRank,
-         rowColor: true
-        },()=> console.log(this.state))
-      }
-      else {
-        console.log("can't select same rank")
-      }
+    // this.setState(prevState => ({
+    //   selectedAnimal: [...prevState.selectedAnimal, newName],
+    //   errSelectedRanks: [...prevState.errSelectedRanks, newRank],
+    //   rowColor: true
+    // }), console.log("after: " + this.state))
+  }
+
+  handleAnimalSelect = (e) => {
+    let a = [1,2,4]
+    console.log(a.includes(1))
+    const err = true
+    // const err = this.state.selectedAnimals.includes(e.target.name);
+    if (err === true){
+        this.setState({error: e.target.name});
     }
-
-    //  this.setState(previousState => {
-       
-    //    let cRank = previousState.rank
-    //    let cName = previousState.name
-    //    console.log(previousState) 
-
-    //    return {
-    //       rank: newRank,
-    //       name: newName,
-    //       rowColor: true
-    //      }
-    //  },console.log(this.state.rank))
-  }
+ }
 
   render() {
     const cells = _.range(1, 6).map((i) => {
       return (
-        <td key={`${this.props.animalName}-${i}`} onChange={this.handleChange2}>
+        <td key={`${this.props.animalName}-${i}`} >
           <input 
+            onChange={this.handleChange}
             type="radio"
             name={this.props.animalName}
             value={i}
+            onClick={this.handleAnimalSelect}
           /> 
+           {/* { this.state.error !== undefined ?  <div >{`Animal ${this.state.error} was chosen twice`}</div> : ""} */}
         </td>
       );
     });
 
     return (
      
-      <tr className = {(this.state.rowColor) ? 'done':null}  >
+      <tr className = {(this.state.rowColor) ? ((this.state.error === undefined) ? 'error' : 'done'): null}  >
       {/* <tr> */}
         <th>{this.props.animalName}</th>
         {cells}

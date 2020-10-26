@@ -14,24 +14,6 @@ class MainPage extends React.Component {
     };
   }
 
-  getValue = ({name,rank}) =>{
-      console.log(`Name: ${name} rank: ${rank}`)
-  }
-  
-  // handleSubmit = event => {
-   
-  //   event.preventDefault()
-  //   this.props.getValue(this.state)
-  // }
-
-  checkForUnique = () => {
-    // Show this error message: `Ranks must be unique` whenever the user has selected the
-  //  same rank on multiple rows.
-    this.setState({
-      error : "Ranks must be unique"
-    })  
-  
-  }
 
   isDisabled = () =>{
    // The submit button is disabled by default. Enable it when all rows have a
@@ -47,8 +29,9 @@ class MainPage extends React.Component {
           animalName={animal.name}
           key={animal.name}
           rank={animal.rank}
-          handleChange={this.handleChange}
+         
           getValue={this.getValue}
+          handleAnimalSelect={this.handleAnimalSelect}
         />
       );
     });
@@ -70,7 +53,8 @@ class MainPage extends React.Component {
           </tbody>
         </table>
         <div>{this.state.error}</div>
-        <input type="submit" value="Submit" disabled={this.isDisabled()} />        {/* <button type="submit">Submit</button> */}
+        <input type="submit" value="Submit" disabled={this.isDisabled()} />        
+        {/* <button type="submit">Submit</button> */}
         {/* </form> */}
       </div>
     );
