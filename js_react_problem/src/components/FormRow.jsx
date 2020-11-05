@@ -34,9 +34,11 @@ class FormRow extends React.Component {
         </td>
       );
     });
+    const done = this.state.rank ? "done" : null
+    console.log(done)
 
     return (
-      <tr className={this.state.rank ? "done" : null}>
+     <tr className={done}>
         <th>{this.props.animalName}</th>
         {cells}
       </tr>
