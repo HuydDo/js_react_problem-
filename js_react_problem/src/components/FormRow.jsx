@@ -11,8 +11,11 @@ class FormRow extends React.Component {
   //we should update the component
   componentDidUpdate(){
     if(this.props.animalRank !== this.state.rank){
+         
       this.setState({rank: this.props.animalRank})
+    
     }
+
   }
 
   render() {
@@ -36,7 +39,7 @@ class FormRow extends React.Component {
     });
     const done = this.state.rank ? "done" : null
     console.log(done)
-
+    
     return (
      <tr className={done}>
         <th>{this.props.animalName}</th>
